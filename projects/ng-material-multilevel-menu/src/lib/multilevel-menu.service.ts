@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { MultilevelNodes } from './app.model';
+import { Subject } from 'rxjs/internal/Subject';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MultilevelMenuService {
   foundLinkObject: MultilevelNodes;
+  public exand_menu = new Subject<boolean>();
   generateId(): string {
     let text = '';
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -53,4 +55,13 @@ export class MultilevelMenuService {
     this.recursiveCheckLink(node, link);
     return this.foundLinkObject;
   }
+
+  expandTrue() {
+    this.exand_menu.next(true)
+  }
+
+  expandFalse() {
+    this.exand_menu.next(false)
+  }
+  
 }

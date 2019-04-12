@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 
 import { constant as CONSTANT } from './constants';
+import { MultilevelMenuService } from 'projects/ng-material-multilevel-menu/src/lib/multilevel-menu.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ export class AppComponent {
 
 
   constructor(
-    private router: Router
+    private router: Router,
+    private multilevelMenuService: MultilevelMenuService
   ) {
     setTimeout(() => {
       this.displayList = true;
@@ -35,5 +37,15 @@ export class AppComponent {
     setTimeout(() => {
       this.displayList = true;
     }, 100);
+  }
+
+  expand(value:boolean){
+   if (value) {
+    this.multilevelMenuService.expandFalse();
+   }else {
+    this.multilevelMenuService.expandTrue();
+   }
+    
+    
   }
 }

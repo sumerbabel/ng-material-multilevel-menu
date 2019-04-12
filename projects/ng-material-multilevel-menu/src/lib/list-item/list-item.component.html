@@ -10,9 +10,9 @@
       </mat-icon>
       <img matListAvatar *ngSwitchCase="'imageicon'" class="amml-icon" src="{{node.imageIcon}}" alt="{{node.label}}"/>
     </div>    
-    <span class="label">{{node.label}}</span>
+    <span *ngIf ="minimWidth === false" class="label">{{node.label}}</span>
   </div>
-  <ng-container *ngIf='hasItems()'>
+  <ng-container *ngIf='minimWidth === false && hasItems()'>
     <mat-icon *ngIf='!isRtlLayout()' [@isExpandedLTR]="hasItems() && expanded ? 'yes' : 'no'">
       keyboard_arrow_down
     </mat-icon>
@@ -30,6 +30,7 @@
     [node]='singleNode'
     [level]="level + 1"
     [selectedNode]='selectedNode'
+    [minimWidth] ="minimWidth"
     (selectedItem)="selectedListItem($event)">
   </ng-list-item>
 </div>

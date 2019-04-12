@@ -21,7 +21,8 @@
 }
 
 .active {
-  color: #1976d2;
+  color: #ffffff !important;
+  background-color: #ff821c !important;
 }
 
 div[dir="ltr"] .amml-icon {
@@ -38,4 +39,14 @@ div[dir="rtl"] .amml-submenu {
   margin-right: 16px;
 }
 
+
+.amml-container {
+  width: 60px !important;
+  /*position: relative;*/
+}
+
+.amml-container.amml-expand {
+  width: 300px !important;
+  /*position: relative;*/
+}
 

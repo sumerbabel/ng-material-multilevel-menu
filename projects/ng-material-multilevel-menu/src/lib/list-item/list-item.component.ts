@@ -59,6 +59,7 @@ export class ListItemComponent implements OnChanges {
   @Input() selectedNode: MultilevelNodes;
   @Input() nodeConfiguration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
+  @Input()  minimWidth = true;
   isSelected = false;
   nodeChildren: MultilevelNodes[];
   classes: { [index: string]: boolean };
@@ -73,6 +74,15 @@ export class ListItemComponent implements OnChanges {
       [CONSTANT.DEFAULT_LIST_CLASS_NAME]: true,
       [CONSTANT.SELECTED_LIST_CLASS_NAME]: false,
     };
+
+  this.multilevelMenuService.exand_menu.subscribe(
+      exandvalue => { 
+        this.minimWidth =exandvalue;
+        console.log('ITEMM INICIAL', this.minimWidth);
+      }
+      );
+     
+
   }
   ngOnChanges() {
     this.nodeChildren = this.node && this.node.items ? this.node.items.filter(n => !n.hidden) : [];

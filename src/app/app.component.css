@@ -9,7 +9,15 @@
 }
 
 .sibebar-content {
-  width: 30vw;
+  /*width: 60px;*/
+  background-color:#5d4595;
+}
+
+.sibebar-content.compressedmenu {
+  width: 60px;
+}
+.sibebar-content.expandmenu {
+  width: 3em;
 }
 
 .content {

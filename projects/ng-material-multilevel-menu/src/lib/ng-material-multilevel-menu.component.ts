@@ -7,7 +7,7 @@ import { Configuration, MultilevelNodes, BackgroundStyle } from './app.model';
 import { CONSTANT } from './constants';
 
 @Component({
-  selector: 'ng-material-multilevel-menu',
+  selector: 'ng-material-multilevel-menux',
   templateUrl: './ng-material-multilevel-menu.component.html',
   styleUrls: ['./ng-material-multilevel-menu.component.css'],
 })
@@ -16,11 +16,12 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
   @Input() configuration: Configuration = null;
   @Output() selectedItem = new EventEmitter<MultilevelNodes>();
   @Output() selectedLabel = new EventEmitter<MultilevelNodes>();
+  boolMiniWidth :boolean;
   currentNode: MultilevelNodes;
   nodeConfig: Configuration = {
     paddingAtStart: true,
-    listBackgroundColor: null,
-    fontColor: null,
+    listBackgroundColor: '#5d4595',// null,
+    fontColor:'#ffffff', // null,
     selectedListFontColor: null,
     interfaceWithRoute: null,
     collapseOnSelect: null,
@@ -116,15 +117,24 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     }
   }
   getClassName(): string {
-    if (this.isInvalidConfig) {
-      return CONSTANT.DEFAULT_CLASS_NAME;
+  this.multilevelMenuService.exand_menu.subscribe(result =>{ this.boolMiniWidth = result})
+    if (this.boolMiniWidth=== false ) {
+return 'amml-container amml-expand'
     } else {
-      if (this.configuration.classname !== '' && this.configuration.classname !== null && this.configuration.classname !== undefined) {
-        return `${CONSTANT.DEFAULT_CLASS_NAME} ${this.configuration.classname}`;
-      } else {
+
+      if (this.isInvalidConfig) {
         return CONSTANT.DEFAULT_CLASS_NAME;
+      } else {
+        if (this.configuration.classname !== '' && this.configuration.classname !== null && this.configuration.classname !== undefined) {
+          return `${CONSTANT.DEFAULT_CLASS_NAME} ${this.configuration.classname}`;
+        } else {
+          return CONSTANT.DEFAULT_CLASS_NAME;
+        }
       }
+
     }
+
+   
   }
   getGlobalStyle(): BackgroundStyle {
     if (!this.isInvalidConfig) {
@@ -143,11 +153,18 @@ export class NgMaterialMultilevelMenuComponent implements OnInit, OnChanges {
     return this.nodeConfig.rtlLayout;
   }
   selectedListItem(event: MultilevelNodes): void {
-    this.currentNode = event;
+
+    //this.boolMiniWidth = false;
+    this.multilevelMenuService.expandFalse();
+    //console.log('ITEMS', this.items);
+  this.currentNode = event;
     if (event.items === undefined && (!event.onSelected || typeof event.onSelected !== 'function') ) {
       this.selectedItem.emit(event);
     } else {
       this.selectedLabel.emit(event);
     }
+
+    this.multilevelMenuService.expandFalse();
+
   }
 }
